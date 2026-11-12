@@ -191,6 +191,67 @@ footer{background:var(--teal-deep);color:#d6ecea;padding-block:64px 32px}
 .igbio b{color:var(--fg)}
 .igcard .btn{width:100%}
 
+
+/* ===== motion ===== */
+@keyframes up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.07}50%{transform:scale(1.08);opacity:.12}}
+@keyframes navin{from{opacity:0;transform:translateY(-24px)}to{opacity:1;transform:none}}
+@keyframes ping{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.9);opacity:0}}
+@keyframes shine{from{left:-60%}to{left:130%}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.pill{animation:navin .8s cubic-bezier(.2,.8,.2,1) both}
+.hero .eyebrow{animation:up .7s .15s both}
+.hero h1{animation:up .8s .25s both}
+.hero .role{animation:up .8s .38s both}
+.hero .lead{animation:up .8s .5s both}
+.hero .cta{animation:up .8s .62s both}
+.portrait{animation:pop 1s .3s cubic-bezier(.2,.8,.2,1) both}
+.portrait .ring{border-style:dashed;animation:spin 40s linear infinite}
+.portrait .badge{animation:bob 4s ease-in-out infinite}
+.arc{animation:breathe 7s ease-in-out infinite}
+.band-in{animation:up .9s .8s both}
+.btn{position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg)}
+.btn:hover::after{animation:shine .7s ease}
+.type,.cred,.igcard,.step{transition:translate .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.type:hover,.igcard:hover{translate:0 -6px;box-shadow:0 24px 44px rgba(7,74,80,.16)}
+.cred:hover{translate:6px 0}
+.step:hover{translate:0 -4px}
+.step:hover::before{background:var(--teal);color:var(--on-teal)}
+.step::before{transition:background .3s,color .3s}
+.portrait .disc img{transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.portrait:hover .disc img{transform:scale(1.06)}
+.tl{position:relative}
+.tl::after{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--teal);transform-origin:left;transform:scaleX(0);transition:transform .6s}
+.tl:hover::after{transform:scaleX(1)}
+@supports (animation-timeline: view()){
+  .rv{animation:up linear both;animation-timeline:view();animation-range:entry 0% entry 55%}
+  .rv-pop{animation:pop linear both;animation-timeline:view();animation-range:entry 0% entry 60%}
+  .circle{animation:pop linear both;animation-timeline:view();animation-range:entry 0% entry 50%}
+}
+
+/* ===== floating buttons ===== */
+.fab-wa{position:fixed;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:45;width:60px;height:60px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;box-shadow:0 10px 26px rgba(37,211,102,.45);text-decoration:none;animation:pop .6s 1.2s both;transition:transform .2s}
+.fab-wa::before{content:"";position:absolute;inset:0;border-radius:50%;background:#25d366;animation:ping 2.2s 2s infinite;z-index:-1}
+.fab-wa:hover{transform:scale(1.08)}
+.fab-wa .tip{position:absolute;right:72px;white-space:nowrap;background:var(--surface);color:var(--fg);font:600 .85rem var(--body);padding:8px 12px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,.15);opacity:0;transform:translateX(8px);transition:.25s;pointer-events:none}
+.fab-wa:hover .tip{opacity:1;transform:none}
+.fab-book{position:fixed;right:calc(92px + env(safe-area-inset-right,0px));bottom:calc(26px + env(safe-area-inset-bottom,0px));z-index:45;display:inline-flex;align-items:center;gap:10px;border:0;border-radius:999px;padding:14px 22px;background:var(--coral);color:#fff;font:700 .82rem var(--display);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 12px 28px rgba(217,74,61,.4);animation:up .7s 1.4s both;transition:transform .2s,opacity .3s}
+.fab-book:hover{transform:translateY(-3px)}
+.fab-book .dot{width:8px;height:8px;border-radius:50%;background:#fff;position:relative}
+.fab-book .dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:#fff;animation:ping 1.6s infinite}
+.fab-book.hide{opacity:0;pointer-events:none;transform:translateY(20px)}
+@media (max-width:600px){
+  .fab-book{left:calc(16px + env(safe-area-inset-left,0px));right:auto;bottom:calc(22px + env(safe-area-inset-bottom,0px));padding:14px 18px}
+  .fab-wa{right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+  .fab-wa .tip{display:none}
+  footer{padding-bottom:110px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
 /* booking sheet */
 .overlay{position:fixed;inset:0;background:rgba(4,30,32,.6);z-index:50;display:grid;place-items:center;padding:16px}
 .sheet{background:var(--surface);color:var(--fg);border-radius:24px;width:min(540px,100%);max-height:calc(100dvh - 32px);overflow:auto;padding:26px;display:grid;gap:18px}
@@ -272,14 +333,14 @@ textarea{resize:vertical;min-height:80px}
 <div class="wrap band">
   <div class="band-in">
     <h3>Healing hands, <span>caring heart.</span></h3>
-    <div class="stat"><strong>11</strong><small>Years in practice</small></div>
-    <div class="stat"><strong>2015</strong><small>Clinic founded</small></div>
-    <div class="stat"><strong>30<span style="font-size:.5em"> min</span></strong><small>Every new consultation</small></div>
+    <div class="stat"><strong data-count="11">11</strong><small>Years in practice</small></div>
+    <div class="stat"><strong data-count="2015" data-from="2000">2015</strong><small>Clinic founded</small></div>
+    <div class="stat"><strong data-count="30">30<span style="font-size:.5em"> min</span></strong><small>Every new consultation</small></div>
   </div>
 </div>
 
 <section id="about">
-  <div class="wrap statement">
+  <div class="wrap statement rv">
     <h2>A physician who takes the time to understand the whole person, not just the complaint.</h2>
     <div>
       <p>Dr. Anish Mohan trained at Government Homoeopathic Medical College, Calicut, and founded Homoeocare Multi Speciality Clinic in Manjakkal, Cherpulassery, in 2015. Eleven years on, the clinic has grown into a full team serving families across Palakkad.</p>
@@ -294,18 +355,18 @@ textarea{resize:vertical;min-height:80px}
       <p class="eyebrow">Experience</p>
       <h2 style="margin-top:12px">Training and practice</h2>
       <div class="creds">
-        <div class="cred"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg><div><b>BHMS</b><span>Govt. Homoeopathic Medical College, Calicut</span></div></div>
-        <div class="cred"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V8l7-5 7 5v13M10 21v-6h4v6"/></svg><div><b>Founder &amp; Chief Consultant</b><span>Homoeocare Multi Speciality Clinic, Cherpulassery</span></div></div>
-        <div class="cred"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><div><b>Languages</b><span>Malayalam, English<span class="tag">To confirm</span></span></div></div>
-        <div class="cred"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><div><b>Registration</b><span>Registration number to be added<span class="tag">To add</span></span></div></div>
+        <div class="cred rv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg><div><b>BHMS</b><span>Govt. Homoeopathic Medical College, Calicut</span></div></div>
+        <div class="cred rv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V8l7-5 7 5v13M10 21v-6h4v6"/></svg><div><b>Founder &amp; Chief Consultant</b><span>Homoeocare Multi Speciality Clinic, Cherpulassery</span></div></div>
+        <div class="cred rv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><div><b>Languages</b><span>Malayalam, English<span class="tag">To confirm</span></span></div></div>
+        <div class="cred rv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><div><b>Registration</b><span>Registration number to be added<span class="tag">To add</span></span></div></div>
       </div>
     </div>
     <div>
       <div class="timeline">
-        <div class="tl"><span class="yr">2010–2015</span><div><b>Bachelor of Homoeopathic Medicine and Surgery</b><p>Government Homoeopathic Medical College, Calicut.</p></div></div>
-        <div class="tl"><span class="yr">2015</span><div><b>Founded Homoeocare Multi Speciality Clinic</b><p>Opened in Manjakkal, Cherpulassery, Palakkad, as a family homoeopathy clinic.</p></div></div>
-        <div class="tl"><span class="yr">2015–now</span><div><b>Chief Consultant</b><p>Leads consultations and the clinical team at the clinic.</p></div></div>
-        <div class="tl"><span class="yr">2026</span><div><b>11 years of the clinic</b><p>Marked the clinic's 11th anniversary and opened online video consultations.</p></div></div>
+        <div class="tl rv"><span class="yr">2010–2015</span><div><b>Bachelor of Homoeopathic Medicine and Surgery</b><p>Government Homoeopathic Medical College, Calicut.</p></div></div>
+        <div class="tl rv"><span class="yr">2015</span><div><b>Founded Homoeocare Multi Speciality Clinic</b><p>Opened in Manjakkal, Cherpulassery, Palakkad, as a family homoeopathy clinic.</p></div></div>
+        <div class="tl rv"><span class="yr">2015–now</span><div><b>Chief Consultant</b><p>Leads consultations and the clinical team at the clinic.</p></div></div>
+        <div class="tl rv"><span class="yr">2026</span><div><b>11 years of the clinic</b><p>Marked the clinic's 11th anniversary and opened online video consultations.</p></div></div>
       </div>
     </div>
   </div>
@@ -313,19 +374,19 @@ textarea{resize:vertical;min-height:80px}
 
 <section id="book">
   <div class="wrap">
-    <div class="book-head">
+    <div class="book-head rv">
       <div><p class="eyebrow">Online consultations</p><h2 style="margin-top:12px">Book a video consultation</h2><p>Consult Dr. Anish privately by video. Choose your consultation, pick a time, and pay securely by UPI to confirm.</p></div>
       <button class="btn btn-solid" data-book>Start booking</button>
     </div>
     <div class="types">
-      <article class="type feature">
+      <article class="type rv feature">
         <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3"/></svg></span>
         <h3>New consultation</h3>
         <div class="meta"><span>Video call</span><span>30 minutes</span></div>
         <p>A detailed first consultation with a complete case history, followed by your prescription and medicine dispatch.</p>
         <button class="go" data-book="new">Book new consultation →</button>
       </article>
-      <article class="type">
+      <article class="type rv">
         <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7M21 4v5h-5"/></svg></span>
         <h3>Review consultation</h3>
         <div class="meta"><span>Video call</span><span>20 minutes</span></div>
@@ -334,10 +395,10 @@ textarea{resize:vertical;min-height:80px}
       </article>
     </div>
     <div class="steps">
-      <div class="step"><b>Choose a time</b><p>Select a date and slot from Dr. Anish's live calendar.</p></div>
-      <div class="step"><b>Pay by UPI</b><p>Google Pay, PhonePe, Paytm or any UPI app.</p></div>
-      <div class="step"><b>Receive your link</b><p>Your consultation link is sent to WhatsApp once payment is confirmed.</p></div>
-      <div class="step"><b>Join the call</b><p>The video call opens on this website. No app to install.</p></div>
+      <div class="step rv"><b>Choose a time</b><p>Select a date and slot from Dr. Anish's live calendar.</p></div>
+      <div class="step rv"><b>Pay by UPI</b><p>Google Pay, PhonePe, Paytm or any UPI app.</p></div>
+      <div class="step rv"><b>Receive your link</b><p>Your consultation link is sent to WhatsApp once payment is confirmed.</p></div>
+      <div class="step rv"><b>Join the call</b><p>The video call opens on this website. No app to install.</p></div>
     </div>
   </div>
 </section>
@@ -366,7 +427,7 @@ textarea{resize:vertical;min-height:80px}
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
         Follow on Instagram</a>
     </div>
-    <div class="igcard">
+    <div class="igcard rv-pop">
       <div class="igtop">
         <span class="igav"><span><svg width="30" height="30" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="#fff"/><path d="M20 22c0-5 2-8 5-9-1 4-2 7-5 9z" fill="#2fa36b"/><path d="M20 22c0-4-2-6-4-7 0 3 1 6 4 7z" fill="#46b97d"/><path d="M11 21c3 5 6 6 9 6s6-1 9-6c-2 1-4 2-6 2h-6c-2 0-4-1-6-2z" fill="#d94a3d"/></svg></span></span>
         <div><b>@homoeocare_multispeciality</b><small>Homoeocare Multi Speciality Clinic</small></div>
@@ -382,11 +443,11 @@ textarea{resize:vertical;min-height:80px}
   <div class="wrap faq-grid">
     <div><p class="eyebrow">Questions</p><h2 style="margin-top:12px">Before you book</h2></div>
     <div>
-      <details><summary>Do I need to install an app?</summary><p>No. The consultation opens in your browser on this website. Chrome or Safari on a phone or laptop works best.</p></details>
-      <details><summary>How do I receive the consultation link?</summary><p>After you pay and enter your UPI reference, the clinic verifies the payment and sends your link to the WhatsApp number you entered.</p></details>
-      <details><summary>Can I consult from outside India?</summary><p>Yes. Book the same way. If you can't pay by UPI, message the clinic on WhatsApp for other payment options.</p></details>
-      <details><summary>How will I get my medicines?</summary><p>After the consultation, the clinic arranges dispatch to your address. Delivery time depends on your location.</p></details>
-      <details><summary>Can I reschedule?</summary><p>Yes, free of charge up to 4 hours before your booked time. Message the clinic on WhatsApp to change your slot.</p></details>
+      <details class="rv"><summary>Do I need to install an app?</summary><p>No. The consultation opens in your browser on this website. Chrome or Safari on a phone or laptop works best.</p></details>
+      <details class="rv"><summary>How do I receive the consultation link?</summary><p>After you pay and enter your UPI reference, the clinic verifies the payment and sends your link to the WhatsApp number you entered.</p></details>
+      <details class="rv"><summary>Can I consult from outside India?</summary><p>Yes. Book the same way. If you can't pay by UPI, message the clinic on WhatsApp for other payment options.</p></details>
+      <details class="rv"><summary>How will I get my medicines?</summary><p>After the consultation, the clinic arranges dispatch to your address. Delivery time depends on your location.</p></details>
+      <details class="rv"><summary>Can I reschedule?</summary><p>Yes, free of charge up to 4 hours before your booked time. Message the clinic on WhatsApp to change your slot.</p></details>
     </div>
   </div>
 </section>
@@ -394,7 +455,7 @@ textarea{resize:vertical;min-height:80px}
 
 <footer id="contact">
   <div class="wrap">
-    <div class="foot">
+    <div class="foot rv">
       <div>
         <h3>Booking and enquiries</h3>
         <div class="copyrow"><span id="phone">+91 75598 82838</span><button class="mini" data-copy="phone">Copy</button></div>
@@ -412,6 +473,13 @@ textarea{resize:vertical;min-height:80px}
     <div class="legal"><span>© 2026 Dr. Anish Mohan · Homoeocare Multi Speciality Clinic</span><span>Online consultations are not for medical emergencies.</span></div>
   </div>
 </footer>
+
+
+<a class="fab-wa" href="https://wa.me/917559882838?text=Hi%2C%20I%27d%20like%20to%20book%20a%20consultation%20with%20Dr.%20Anish%20Mohan." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <span class="tip">Chat with us on WhatsApp</span>
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2C18.2 1.3 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.6-8.4z"/></svg>
+</a>
+<button class="fab-book" data-book id="fabBook"><span class="dot"></span>Book appointment</button>
 
 <div class="overlay" id="ov" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
@@ -497,6 +565,20 @@ function drawQR(){const c=document.getElementById('qr'),x=c.getContext('2d'),n=2
   let seed=7;const r=()=>(seed=(seed*9301+49297)%233280)/233280;
   for(let i=0;i<n;i++)for(let j=0;j<n;j++){if(r()>.55)x.fillRect(i*s,j*s,s,s);}
   [[0,0],[n-7,0],[0,n-7]].forEach(([a,b])=>{x.fillStyle='#074a50';x.fillRect(a*s,b*s,7*s,7*s);x.fillStyle='#fff';x.fillRect((a+1)*s,(b+1)*s,5*s,5*s);x.fillStyle='#074a50';x.fillRect((a+2)*s,(b+2)*s,3*s,3*s);});}
+
+// count-up for stats (final values are already in the HTML)
+(function(){
+  const els=document.querySelectorAll('[data-count]');
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;io.unobserve(e.target);
+    const el=e.target,to=+el.dataset.count,from=+(el.dataset.from||0),t0=performance.now(),d=1400;
+    (function f(t){const k=Math.min(1,(t-t0)/d),v=Math.round(from+(to-from)*(1-Math.pow(1-k,3)));el.firstChild.nodeValue=v;if(k<1)requestAnimationFrame(f);})(t0);
+  }),{threshold:.6});
+  els.forEach(e=>io.observe(e));
+})();
+// hide floating Book button while the booking section is on screen
+(function(){const fb=document.getElementById('fabBook'),bk=document.getElementById('book');if(!fb||!bk||!('IntersectionObserver' in window))return;
+  new IntersectionObserver(es=>fb.classList.toggle('hide',es[0].isIntersecting),{threshold:.25}).observe(bk);})();
 </script>
 
 </body>
